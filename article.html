@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Sofyan Portfolio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Detailed overview of project development, tech stack, and features by Sofyan Wanadi.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Project Details | Sofyan Portfolio">
+    <meta property="og:description" content="View detailed project implementation and technical challenges.">
+    <meta property="og:image" content="https://sofyan.dev/profile.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="article-page">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Sofyan<span
+                        class="accent">.</span></a></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="project-detail">
+        <div class="container">
+            <header class="detail-header">
+                <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+                <h1 id="project-title" class="detail-title">Project Title</h1>
+                <div id="project-tags" class="project-tags"></div>
+            </header>
+
+            <section class="detail-gallery">
+                <div class="carousel" id="carousel">
+                    <div class="carousel-inner" id="carousel-inner">
+                        <!-- Images will be injected here -->
+                    </div>
+                    <button class="carousel-control prev" id="prevBtn">&larr;</button>
+                    <button class="carousel-control next" id="nextBtn">&rarr;</button>
+                </div>
+            </section>
+
+            <section class="detail-content">
+                <div class="detail-info">
+                    <h2>About this <span>project</span></h2>
+                    <p id="project-description">Project description goes here...</p>
+                </div>
+                <div class="detail-sidebar">
+                    <div class="sidebar-box">
+                        <h3>Technologies <span>Used</span></h3>
+                        <div id="tech-list" class="tech-list">
+                            <!-- Tech items will be injected here -->
+                        </div>
+                    </div>
+                    <div class="sidebar-box">
+                        <h3>Project <span>Link</span></h3>
+                        <a href="#" id="project-external-link" class="btn-primary" target="_blank">Visit Project</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Sofyan. Built with ❤️ and Vanilla CSS. With Antigravity</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const projectData = {
+            tapmm: {
+                title: "Tap MM",
+                description: "Tap MM is an application related to warehousing in the field of procurement. It helps manage inventory, track stock levels, and streamline the procurement process. The application ensures efficient handling of goods, reduces errors, and improves overall productivity in warehouse operations.",
+                images: ["assets/tapmm/fmr.PNG", "assets/tapmm/mcrf.PNG", "assets/tapmm/mtc.PNG"],
+                tags: ["Warehouse", "Procurement", "Inventory"],
+                tech: ["Go", "Next.js", "PostgreSQL", "Docker", "Javascript", "NextJs"],
+                link: "https://mm-tap.tripatra.com/"
+            },
+            eproc: {
+                title: "E-proc",
+                description: "E-proc is an application that handles vendor registration, tender creation, winner selection, and vendor evaluation. It streamlines the procurement process, ensuring efficient and transparent management of tenders and vendor relationships.",
+                images: ["assets/eproc/po.PNG", "assets/eproc/cbe-draft.PNG", "assets/eproc/blast-email.PNG"],
+                tags: ["Vendor Management", "Tendering", "E-Procurement"],
+                tech: ["Go", "Backend", "PostgreSQL", "JWT", "Typescript", "Next.js"],
+                link: "#"
+            },
+            inagro: {
+                title: "Inagro Jinawi",
+                description: "Inagro Jinawi is an application that tracks the traceability of palm sugar from farmers to collectors and finally to Inagro. It ensures transparency and efficiency in the supply chain, helping to monitor the quality and origin of the product at each stage.",
+                images: ["assets/inagro/1.png", "assets/inagro/2.png", "assets/inagro/3.png"],
+                tags: ["Supply Chain", "Traceability", "Palm Sugar"],
+                tech: ["Javascript", "Adonis js", "Vue", "MySQL"],
+                link: "#"
+            },
+            sisapra: {
+                title: "Sisapra",
+                description: "Sisapra is a centralized reporting system for Satpol PP Jakarta, used to manage and track field activity reports across the city. It allows officers to submit reports directly from the field, providing real-time data to command centers.",
+                images: ["assets/sisapra/sisapra.png"],
+                tags: ["Internal System", "Reporting", "Government", "Jakarta"],
+                tech: ["Go", "GORM", "PostgreSQL", "JWT", "Docker", "Typescript", "Next.js"],
+                link: "#https://sisappra-satpolpp.jakarta.go.id/authentication/signin"
+            }
+        };
+
+        function getProjectFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('project');
+        }
+
+        function loadProject() {
+            const projectId = getProjectFromURL();
+            const project = projectData[projectId];
+
+            if (!project) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            document.title = `${project.title} | Sofyan Portfolio | Project Case Study`;
+            document.querySelector('meta[name="description"]').setAttribute("content", project.description.substring(0, 160));
+            document.getElementById('project-title').innerText = project.title;
+            document.getElementById('project-description').innerText = project.description;
+            document.getElementById('project-external-link').href = project.link;
+
+            // Tags
+            const tagsContainer = document.getElementById('project-tags');
+            project.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.innerText = tag;
+                tagsContainer.appendChild(span);
+            });
+
+            // Tech List
+            const techContainer = document.getElementById('tech-list');
+            project.tech.forEach(t => {
+                const item = document.createElement('div');
+                item.className = 'tech-item';
+                item.innerText = t;
+                techContainer.appendChild(item);
+            });
+
+            // Images Carousel
+            const carouselInner = document.getElementById('carousel-inner');
+            project.images.forEach((img, index) => {
+                const div = document.createElement('div');
+                div.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                const image = document.createElement('img');
+                image.src = img;
+                image.alt = `${project.title} screenshot ${index + 1}`;
+                div.appendChild(image);
+                carouselInner.appendChild(div);
+            });
+
+            initCarousel();
+        }
+
+        function initCarousel() {
+            const inner = document.getElementById('carousel-inner');
+            const items = document.querySelectorAll('.carousel-item');
+            let currentIdx = 0;
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                items[currentIdx].classList.remove('active');
+                currentIdx = (currentIdx + 1) % items.length;
+                items[currentIdx].classList.add('active');
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                items[currentIdx].classList.remove('active');
+                currentIdx = (currentIdx - 1 + items.length) % items.length;
+                items[currentIdx].classList.add('active');
+            });
+        }
+
+        window.onload = loadProject;
+    </script>
+</body>
+
+</html>
