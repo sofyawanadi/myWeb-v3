@@ -274,10 +274,88 @@ h3,
     padding: 5rem 0;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 3rem;
+/* Projects Carousel */
+.projects-carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.projects-carousel-viewport {
+    overflow: hidden;
+    flex: 1;
+    border-radius: 24px;
+}
+
+.projects-carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projects-carousel-track .project-card {
+    min-width: calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+    flex-shrink: 0;
+}
+
+.projects-carousel-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--fg-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.projects-carousel-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.projects-carousel-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.projects-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.projects-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.projects-dot.active {
+    background: var(--accent-color);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+    transform: scale(1.3);
+}
+
+.projects-dot:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .project-card {
@@ -556,8 +634,26 @@ footer {
     }
 }
 
+@media (max-width: 968px) {
+    .projects-carousel-track .project-card {
+        min-width: calc((100% - 1.5rem) / 2);
+        max-width: calc((100% - 1.5rem) / 2);
+    }
+}
+
 @media (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: 1fr;
+    .projects-carousel-track .project-card {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .projects-carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .projects-carousel-btn svg {
+        width: 18px;
+        height: 18px;
     }
 }
